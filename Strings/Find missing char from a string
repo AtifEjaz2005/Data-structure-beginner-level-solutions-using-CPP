@@ -1,0 +1,35 @@
+#include <iostream>
+#include <string>
+using namespace std ;
+
+
+bool isCharacterInString (string str , char ch){
+	bool isFound = str.find(ch) != string::npos;;
+//	cout<<"isFound : "<<isFound<<endl;
+	return isFound ;
+}
+
+char getMissingCharInString(string str, string str2 ){
+	for (int itr = 0 ; itr < str.length() ; itr++){
+		if (isCharacterInString(str2,str[itr])){
+			continue;
+		}else{
+			return str[itr];
+		}
+	}
+}
+
+int main (){
+	string str1 = "a";
+    string str2 = "";
+    
+    char ch = getMissingCharInString(str1,str2);
+	
+	if (ch){
+		cout<<"Missing Character is : "<<ch<<endl;
+	}else {
+		cout<<"There is no missing character.";
+	}
+	
+	return 0 ;
+}

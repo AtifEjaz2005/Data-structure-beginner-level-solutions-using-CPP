@@ -1,0 +1,62 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+ 
+void findCombinations(auto const &keypad, auto const &keys)
+{
+    // list to store combinations of all possible words
+    vector<string> list;
+ 
+    // push all characters associated with the first digit into the output list
+    for (char c: keypad[keys[0]]) {
+        list.push_back(string(1, c));
+    }
+ 
+    // start from the second digit
+    for (int i = 1; i < keys.size(); i++)
+    {
+        // Temporary vector
+        vector<string> vec;
+ 
+        // for each character associated with the current digit in the keypad,
+        for (char c: keypad[keys[i]])
+        {
+            for (string str: list) {
+                vec.push_back(str + c);
+            }
+        }
+ 
+        // replace contents of output list with that of the temporary vector
+        list = vec;
+    }
+ 
+    // print output list containing all combinations of words possible
+    for (string str: list) {
+        cout << str << " ";
+    }
+}
+ 
+int main()
+{
+    // mobile keypad
+    vector<vector<char>> keypad =
+    {
+        {}, {},        // 0 and 1 digit doesn't have any characters associated
+        { 'A', 'B', 'C' },
+        { 'D', 'E', 'F' },
+        { 'G', 'H', 'I' },
+        { 'J', 'K', 'L' },
+        { 'M', 'N', 'O' },
+        { 'P', 'Q', 'R', 'S'},
+        { 'T', 'U', 'V' },
+        { 'W', 'X', 'Y', 'Z'}
+    };
+ 
+    // input number in the form of an array (number cannot start from 0 or 1)
+    vector<int> keys = { 2, 3, 4 };
+ 
+    // find all combinations
+    findCombinations(keypad, keys);
+ 
+    return 0;
+}

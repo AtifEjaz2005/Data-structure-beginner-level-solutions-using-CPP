@@ -1,0 +1,23 @@
+#include <iostream>
+using namespace std ;
+
+int main (){
+
+	int count = 0 ;
+	int a[] = {1,2}, b[] = {-1,-2} , c[] = {-1,1} , d[] = {1,-2};
+	
+	for (int itr = 0 ; itr < sizeof(a)/sizeof(a[0]) ; itr++){
+		for (int itr1 = 0 ; itr1 < sizeof(b)/sizeof(b[0]) ; itr1++)	{
+			for (int itr2 = 0 ; itr2 < sizeof(c)/sizeof(c[0]) ; itr2++){
+				for (int itr3 = 0 ; itr3 < sizeof(d)/sizeof(d[0]) ; itr3++){
+					if (a[itr]+b[itr1]+c[itr2]+d[itr3] == 0){
+						count += 1 ;
+					}
+				}
+			}
+		}
+	}
+	cout<<count<<endl;	
+	return 0 ;	
+	
+}

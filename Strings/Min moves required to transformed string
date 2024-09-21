@@ -1,0 +1,45 @@
+#include <iostream>
+#include <string>
+#include <map>
+using namespace std ;
+
+void isTransformedInSingleEdit(string str , string str1 , int movesRequired){
+	map <char , int > strmap ;
+// 	frequency of the elements of map
+	for (int itr = 0 ; itr < str1.length() ; itr++){
+		char ch = str1[itr];
+		if (strmap.find(ch) == strmap.end()){
+			strmap[ch] = 1 ;
+		}else {
+			strmap[ch]++;
+		}
+	}
+	map <char , int > :: iterator itr ;
+	for (itr = strmap.begin() ; itr != strmap.end() ; itr++){
+		cout<<itr->first<<" "<<itr->second<<endl;
+	}
+	
+	for (int itr = 0 ; itr <str.length() ; itr++){
+		char ch1 = str[itr];
+		cout<<ch1<<" ";
+		if (strmap.find(ch1) != strmap.end()){
+			strmap[ch1]--;
+			cout<<strmap[ch1]<<endl;
+ 		    if (strmap[ch1] > 0){
+		        movesRequired += strmap[ch1];
+ 		    }
+		}
+	}
+	
+	cout<<endl<<"Number of moves required are/is :"<<movesRequired<<endl;               
+}
+
+int main() {
+	
+	string str = "xyz";
+	string str1 = "xxx";
+	int movesRequired = 0 ;
+	isTransformedInSingleEdit(str, str1 , movesRequired);	
+	return 0 ;
+
+}

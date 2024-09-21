@@ -1,0 +1,70 @@
+#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
+
+vector<char> getMappingListByDigit(char digit, vector<vector<char>> charMapping) {
+    int dig = (digit - '0') - 1;  
+
+    // Check if the calculated index is within bounds
+    if (dig >= 0 && dig < charMapping.size()) {
+        return charMapping[dig];  // Return the mapping corresponding to the digit
+    }
+    // Return an empty vector if there's no mapping
+    return vector<char>();  // Alternatively: return {};
+}
+
+vector<string> getAllPossibleCombinationsFromDigitsToChar(vector<vector<char>> charMapping, string digits) {
+    vector<string> resultantVector;
+    bool firstTime = true;
+
+    for (char digit : digits) {
+        vector<char> currentMappingList = getMappingListByDigit(digit, charMapping);
+        if (currentMappingList.empty()) {
+            cout << "No mapping list found." << endl;
+        } else {
+            if (firstTime) {
+                for (char currentChar : currentMappingList) {
+                    resultantVector.push_back(string(1, currentChar)); // Correctly create a string from the char
+                }
+                firstTime = false;
+            } else {
+                vector<string> currentCombinations;
+                for (char alphabet : currentMappingList) {
+                    for (const string& currentCombination : resultantVector) {
+                        string newCombination = currentCombination;
+                        newCombination += alphabet;
+                        currentCombinations.push_back(newCombination);
+                    }
+                }
+                resultantVector = currentCombinations; // Update resultantVector with the new combinations
+            }
+        }
+    }
+    return resultantVector;
+}
+
+int main() {
+    vector<vector<char>> charMapping{
+        { 'A', 'B', 'C', 'D' },
+        { 'E', 'F', 'G', 'H', 'I', 'J', 'K' },
+        { 'L', 'M', 'N', 'O', 'P', 'Q' },
+        { 'R', 'S', 'T' },
+        { 'R', 'S', 'T' }
+    };
+
+    string digits = "131";
+    vector<string> allCombinations = getAllPossibleCombinationsFromDigitsToChar(charMapping, digits);
+    
+    if (allCombinations.empty()) {
+        cout << "Found no combination" << endl;
+    } else {
+        cout<<"Total combinations : "<<allCombinations.size()<<endl;
+        for (const string& combination : allCombinations) {
+            cout << combination << " ";
+        }
+        cout << endl; // Add a new line at the end of output for better readability
+    }
+
+    return 0;
+}
